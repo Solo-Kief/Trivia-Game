@@ -13,6 +13,7 @@
 		C6662982216BC6F500A0755B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C6662981216BC6F500A0755B /* Assets.xcassets */; };
 		C6662985216BC6F500A0755B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6662983216BC6F500A0755B /* LaunchScreen.storyboard */; };
 		C666298D216CEA6300A0755B /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = C666298C216CEA6300A0755B /* Question.swift */; };
+		C66629AF216D324600A0755B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66629AE216D324600A0755B /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		C6662984216BC6F500A0755B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C6662986216BC6F500A0755B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C666298C216CEA6300A0755B /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		C66629AE216D324600A0755B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				C6662983216BC6F500A0755B /* LaunchScreen.storyboard */,
 				C6662986216BC6F500A0755B /* Info.plist */,
 				C666298C216CEA6300A0755B /* Question.swift */,
+				C66629AE216D324600A0755B /* SettingsViewController.swift */,
 			);
 			path = "Trivia Game";
 			sourceTree = "<group>";
@@ -141,6 +144,7 @@
 				C666298D216CEA6300A0755B /* Question.swift in Sources */,
 				C666297D216BC6F200A0755B /* ViewController.swift in Sources */,
 				C666297B216BC6F200A0755B /* AppDelegate.swift in Sources */,
+				C66629AF216D324600A0755B /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
