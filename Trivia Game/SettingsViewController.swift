@@ -23,6 +23,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        hideKeyboardWhenTappedAround()
         
         defaultButtonColor = editActionButton.tintColor
         
@@ -174,5 +175,17 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             self.editActionButton.backgroundColor = UIColor.clear
         })
         editActionButton.isUserInteractionEnabled = true
+    }
+}
+
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
