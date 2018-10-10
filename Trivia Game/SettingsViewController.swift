@@ -17,10 +17,14 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBOutlet var editActionButton: UIButton!
     @IBOutlet var correctAnswerSelector: UISegmentedControl!
     
+    var defaultButtonColor = UIColor()
+    
     var questionPickerData = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        defaultButtonColor = editActionButton.tintColor
         
         questionPicker.delegate = self
         questionPicker.dataSource = self
@@ -32,13 +36,21 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     }
     
     //Exclusive to picker
+    func rebuildData() {
+        questionPickerData = []
+        
+        guard ViewController.questions.count > 0 else {
+            return
+        }
+        
+        for i in 1...ViewController.questions.count {
+            questionPickerData.append("Question #\(i)")
+        }
+    } //Non-Standard function to rebuild the data list.
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     } //Column Count
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        updateText()
-    } //Allows the text to update when a new row is selected.
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return questionPickerData.count
@@ -47,9 +59,22 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return questionPickerData[row]
     } //Loads in the values for the picker.
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        updateText()
+    } //Allows the text to update when a new row is selected.
     /////////////////////
     
     func updateText() {
+        guard ViewController.questions.count != 0 else {
+            questionField.text = ""
+            answerField1.text = ""
+            answerField2.text = ""
+            answerField3.text = ""
+            answerField4.text = ""
+            return
+        }
+        
         questionField.text = ViewController.questions[questionPicker.selectedRow(inComponent: 0)].question
         answerField1.text = ViewController.questions[questionPicker.selectedRow(inComponent: 0)].answers[0]
         answerField2.text = ViewController.questions[questionPicker.selectedRow(inComponent: 0)].answers[1]
@@ -61,6 +86,8 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         if toggleEditButton.currentTitle == "Toggle Edit Mode" {
             toggleEditButton.setTitle("End Edit Mode", for: .normal)
             editActionButton.setTitle("Add Question", for: .normal)
+            editActionButton.isUserInteractionEnabled = false
+            editActionButton.tintColor = defaultButtonColor
             correctAnswerSelector.isHidden = false
             correctAnswerSelector.isUserInteractionEnabled = true
             correctAnswerSelector.selectedSegmentIndex = 0
@@ -78,6 +105,10 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         } else {
             toggleEditButton.setTitle("Toggle Edit Mode", for: .normal)
             editActionButton.setTitle("Delete Question", for: .normal)
+            if ViewController.questions.count == 0 {
+                editActionButton.isUserInteractionEnabled = false
+                editActionButton.tintColor = UIColor.red
+            }
             questionPicker.isUserInteractionEnabled = true
             correctAnswerSelector.isHidden = true
             correctAnswerSelector.isUserInteractionEnabled = false
@@ -95,14 +126,20 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             let alert = UIAlertController(title: "Delete Question", message: "Are you sure you want to delete this question?", preferredStyle: .alert)
             
             let cancleAction = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
-            let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: {action in ViewController.questions.remove(at: self.questionPicker.selectedRow(inComponent: 0))})
-            
+            let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: {action in ViewController.questions.remove(at: self.questionPicker.selectedRow(inComponent: 0))
+                self.rebuildData()
+                self.questionPicker.reloadAllComponents()
+                self.questionPicker.selectRow(-1, inComponent: 0, animated: false)
+                self.updateText()
+                if ViewController.questions.count == 0 {
+                    self.editActionButton.isUserInteractionEnabled = false
+                    self.editActionButton.tintColor = UIColor.red
+                }
+            })
             alert.addAction(cancleAction)
             alert.addAction(deleteAction)
             
             self.present(alert, animated: true)
-            
-            //Question Picker Must Be Updated!
         } else {
             guard questionField.text != "" && answerField1.text != "" && answerField2.text != "" && answerField3.text != "" && answerField4.text != "" else {
                 UIView.animate(withDuration: 0.25, animations: {
@@ -115,7 +152,8 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
                 return
             }
             ViewController.questions.append(Question(Question: questionField.text!, Answers: [answerField1.text!, answerField2.text!, answerField3.text!, answerField4.text!], CorrectAnswer: correctAnswerSelector.selectedSegmentIndex + 1))
-            //Question Picker Must Be Updated!
+            self.rebuildData()
+            self.questionPicker.reloadAllComponents()
         }
     }
     
