@@ -12,13 +12,11 @@ class Question: NSObject, NSCoding {
     let question: String
     let answers: [String]
     let correctAnswer: Int
-    let correctAnswerString: String
     
     init(Question: String, Answers: [String], CorrectAnswer: Int) {
         question = Question
         answers = Answers
         correctAnswer = CorrectAnswer
-        correctAnswerString = answers[correctAnswer]
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
