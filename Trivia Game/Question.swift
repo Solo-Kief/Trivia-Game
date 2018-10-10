@@ -22,7 +22,7 @@ class Question: NSObject, NSCoding {
     required convenience init?(coder aDecoder: NSCoder) {
         let q = aDecoder.decodeObject(forKey: "question") as! String
         let a = aDecoder.decodeObject(forKey: "answers") as! [String]
-        let c = aDecoder.decodeObject(forKey: "question") as! Int
+        let c = aDecoder.decodeInteger(forKey: "correctAnswer")
         self.init(Question: q, Answers: a, CorrectAnswer: c)
     }
     
@@ -34,7 +34,6 @@ class Question: NSObject, NSCoding {
     
     static func saveArray(questions: [Question]) {
         UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: questions), forKey: "questions")
-        
     }
     
     static func loadArray() -> [Question]? {
@@ -44,5 +43,4 @@ class Question: NSObject, NSCoding {
         let questions = NSKeyedUnarchiver.unarchiveObject(with: questionData as! Data)
         return questions as! [Question]
     }
-
 }

@@ -132,6 +132,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
                 self.questionPicker.reloadAllComponents()
                 self.questionPicker.selectRow(-1, inComponent: 0, animated: false)
                 self.updateText()
+                Question.saveArray(questions: ViewController.questions)
                 if ViewController.questions.count == 0 {
                     self.editActionButton.isUserInteractionEnabled = false
                     self.editActionButton.tintColor = UIColor.red
@@ -166,7 +167,9 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             time.fireDate = Date().addingTimeInterval(1.25)
             self.rebuildData()
             self.questionPicker.reloadAllComponents()
+            Question.saveArray(questions: ViewController.questions)
         }
+        
     }
     
     @objc func resetEditActionButton() { //Partner function for triggerEditAction.

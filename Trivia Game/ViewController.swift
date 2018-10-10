@@ -21,6 +21,14 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         defaultColor = answer1.backgroundColor!
         
+        guard let loadedQuestions = Question.loadArray() else {
+            buildDefaultQuestions()
+            Question.saveArray(questions: ViewController.questions)
+            loadQuestion()
+            return
+        }
+        ViewController.questions = loadedQuestions
+        
         if ViewController.questions.count == 0 { //temporary for testing.
             buildDefaultQuestions()
         }
@@ -42,11 +50,11 @@ class ViewController: UIViewController {
     
     func buildDefaultQuestions() { //temporary function for testing.
         ViewController.questions.append(Question(Question: "How many buttons are on an iPhone X?", Answers: ["One", "Two", "Three", "Four"], CorrectAnswer: 3))
-        ViewController.questions.append(Question(Question: "But what of the small gator?", Answers: ["Forever More", "Forever Blank", "Forever Great", "Fourever Pun"], CorrectAnswer: 2))
+        ViewController.questions.append(Question(Question: "But what of the poor gator?", Answers: ["Forever More", "Forever Blank", "Forever Great", "Fourever Pun"], CorrectAnswer: 2))
         ViewController.questions.append(Question(Question: "Babe Ruth is assosiated with which sport?", Answers: ["Football", "Basketball", "Baseball", "Soccer"], CorrectAnswer: 3))
         ViewController.questions.append(Question(Question: "What's the total number of dots on a pair of dice?", Answers: ["36", "32", "12", "42"], CorrectAnswer: 4))
         ViewController.questions.append(Question(Question: "What planet is the closest to earth?", Answers: ["Venus", "Pluto", "Mars", "Neptune"], CorrectAnswer: 1))
-        ViewController.questions.append(Question(Question: "What is the tallest Mammal?", Answers: ["Elephant", "Human", "Giraffe", "Kangaroo"], CorrectAnswer: 1))
+        ViewController.questions.append(Question(Question: "What is the tallest Mammal?", Answers: ["Elephant", "Human", "Giraffe", "Kangaroo"], CorrectAnswer: 3))
         ViewController.questions.append(Question(Question: "How many strings does a violin have?", Answers: ["Three", "Four", "Five", "Six"], CorrectAnswer: 2))
         ViewController.questions.append(Question(Question: "What is the chemical symbol for hydrogen?", Answers: ["Hy", "Hn", "HyGn", "H"], CorrectAnswer: 4))
     }
