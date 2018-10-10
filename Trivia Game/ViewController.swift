@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     static var questions: [Question] = []
     var correctAnswer = 0
     var defaultColor = UIColor()
+    var lastQuestion = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,9 +37,11 @@ class ViewController: UIViewController {
     }
 
     func loadQuestion() {
-        let selector = Int.random(in: 0..<ViewController.questions.count)
-        
-        //Add no question scenerio
+        var selector = Int.random(in: 0..<ViewController.questions.count)
+        while lastQuestion == selector {
+            selector = Int.random(in: 0..<ViewController.questions.count)
+        }
+        lastQuestion = selector
         
         questionField.text = ViewController.questions[selector].question
         answer1.setTitle(ViewController.questions[selector].answers[0], for: .normal)
