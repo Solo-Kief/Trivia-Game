@@ -86,7 +86,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         if toggleEditButton.currentTitle == "Toggle Edit Mode" {
             toggleEditButton.setTitle("End Edit Mode", for: .normal)
             editActionButton.setTitle("Add Question", for: .normal)
-            editActionButton.isUserInteractionEnabled = false
+            editActionButton.isUserInteractionEnabled = true
             editActionButton.tintColor = defaultButtonColor
             correctAnswerSelector.isHidden = false
             correctAnswerSelector.isUserInteractionEnabled = true
@@ -152,6 +152,17 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
                 return
             }
             ViewController.questions.append(Question(Question: questionField.text!, Answers: [answerField1.text!, answerField2.text!, answerField3.text!, answerField4.text!], CorrectAnswer: correctAnswerSelector.selectedSegmentIndex + 1))
+            questionField.text = ""
+            answerField1.text = ""
+            answerField2.text = ""
+            answerField3.text = ""
+            answerField4.text = ""
+            UIView.animate(withDuration: 0.25, animations: {
+                self.editActionButton.setTitle("Question Added", for: .normal)
+                self.editActionButton.backgroundColor = UIColor.green
+            })
+            let time = Timer.scheduledTimer(timeInterval: 0, target: self, selector: #selector(resetEditActionButton), userInfo: nil, repeats: false)
+            time.fireDate = Date().addingTimeInterval(1.25)
             self.rebuildData()
             self.questionPicker.reloadAllComponents()
         }

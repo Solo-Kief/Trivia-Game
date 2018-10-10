@@ -239,11 +239,16 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hVo-aA-Tto">
-                                <rect key="frame" x="225" y="742" width="150" height="30"/>
+                                <rect key="frame" x="220" y="742" width="150" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="vfm-l5-nYs"/>
                                 </constraints>
                                 <state key="normal" title="Delete Question"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="triggerEditAction:" destination="KTF-bo-hGQ" eventType="touchUpInside" id="qu5-6C-fbD"/>
                                 </connections>
@@ -288,7 +293,7 @@
                             <constraint firstItem="hVo-aA-Tto" firstAttribute="top" secondItem="g4b-1s-VW1" secondAttribute="bottom" constant="17" id="gPR-5F-rYt"/>
                             <constraint firstItem="5Ml-m8-9b5" firstAttribute="centerX" secondItem="V7v-h6-QVs" secondAttribute="centerX" id="loK-Mh-hzu"/>
                             <constraint firstItem="JLJ-8V-HL2" firstAttribute="top" secondItem="hkV-sz-sgD" secondAttribute="top" id="nO5-oo-M1g"/>
-                            <constraint firstItem="hVo-aA-Tto" firstAttribute="trailing" secondItem="hkV-sz-sgD" secondAttribute="trailing" id="pzK-I4-Yxw"/>
+                            <constraint firstItem="hVo-aA-Tto" firstAttribute="trailing" secondItem="hkV-sz-sgD" secondAttribute="trailing" constant="-5" id="pzK-I4-Yxw"/>
                             <constraint firstItem="RTl-a1-IGD" firstAttribute="top" secondItem="6V8-XW-PdL" secondAttribute="bottom" constant="25" id="qXf-Wk-hEm"/>
                             <constraint firstItem="y1k-La-Tor" firstAttribute="centerX" secondItem="V7v-h6-QVs" secondAttribute="centerX" id="sIL-VK-sAo"/>
                             <constraint firstItem="7xj-fk-0nw" firstAttribute="top" secondItem="RTl-a1-IGD" secondAttribute="bottom" constant="10" id="uGB-ae-e5O"/>
