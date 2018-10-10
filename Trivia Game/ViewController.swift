@@ -94,8 +94,8 @@ class ViewController: UIViewController {
             return
         }
         
-        let time = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(resetScenario), userInfo: nil, repeats: false)
-        time.fireDate = Date().addingTimeInterval(2)
+        let time = Timer.scheduledTimer(timeInterval: 0, target: self, selector: #selector(resetScenario), userInfo: nil, repeats: false)
+        time.fireDate = Date().addingTimeInterval(1.25)
     }
     
     func changeColor(button: Int, color: UIColor) {
