@@ -244,8 +244,6 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             self.rebuildData()
             self.questionPicker.reloadAllComponents()
             Question.saveArray(questions: ViewController.questions)
-            toggleEditButton.setTitle("End Edit Mode", for: .normal)
-            toggleEdit(toggleEditButton)
         }
         
     }
@@ -256,6 +254,8 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             self.editActionButton.backgroundColor = UIColor.clear
         })
         editActionButton.isUserInteractionEnabled = true
+        toggleEditButton.setTitle("End Edit Mode", for: .normal)
+        toggleEdit(toggleEditButton)
     }
     
     @objc func resetEditActionButton2() { //Alt-Function
