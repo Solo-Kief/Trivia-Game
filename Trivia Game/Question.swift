@@ -9,9 +9,9 @@
 import Foundation
 
 class Question: NSObject, NSCoding {
-    let question: String
-    let answers: [String]
-    let correctAnswer: Int
+    var question: String
+    var answers: [String]
+    var correctAnswer: Int
     
     init(Question: String, Answers: [String], CorrectAnswer: Int) {
         question = Question

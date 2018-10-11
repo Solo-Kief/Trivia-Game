@@ -18,8 +18,8 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBOutlet var correctAnswerSelector: UISegmentedControl!
     
     var defaultButtonColor = UIColor()
-    
     var questionPickerData = [String]()
+    var questionDidChange = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +30,15 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         questionPicker.delegate = self
         questionPicker.dataSource = self
         
-        for i in 1...ViewController.questions.count {
+        // See textFieldDidChange()
+        questionField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        answerField1.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        answerField2.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        answerField3.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        answerField4.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        //
+        
+        for i in 1...ViewController.questions.count { // Same as rebuildData()
             questionPickerData.append("Question #\(i)")
         }
         updateText()
@@ -83,29 +91,66 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         answerField4.text = ViewController.questions[questionPicker.selectedRow(inComponent: 0)].answers[3]
     }
     
-    @IBAction func toggleEdit(_ sender: UIButton) {
-        if toggleEditButton.currentTitle == "Toggle Edit Mode" {
+    @IBAction func toggleEdit(_ sender: UIButton) { //Variable action depending on button state.
+        if toggleEditButton.currentTitle == "Toggle Edit Mode" { //Triggers the app to prep for question editing.
             toggleEditButton.setTitle("End Edit Mode", for: .normal)
-            editActionButton.setTitle("Add Question", for: .normal)
+            editActionButton.setTitle("Delete Question", for: .normal)
             editActionButton.isUserInteractionEnabled = true
             editActionButton.tintColor = defaultButtonColor
             correctAnswerSelector.isHidden = false
             correctAnswerSelector.isUserInteractionEnabled = true
-            correctAnswerSelector.selectedSegmentIndex = 0
-            questionPicker.isUserInteractionEnabled = false
-            questionField.text = ""
-            answerField1.text = ""
-            answerField2.text = ""
-            answerField3.text = ""
-            answerField4.text = ""
+            correctAnswerSelector.selectedSegmentIndex = ViewController.questions[questionPicker.selectedRow(inComponent: 0)].correctAnswer - 1
             answerField1.isUserInteractionEnabled = true
             answerField2.isUserInteractionEnabled = true
             answerField3.isUserInteractionEnabled = true
             answerField4.isUserInteractionEnabled = true
             questionField.isUserInteractionEnabled = true
-        } else {
+        } else if toggleEditButton.currentTitle == "End Edit Mode" { //Ends editing mode.
+            if questionDidChange { //Triggers an alert set up if the question was modified. Otherwise, will just perform the else condition.
+                let alert = UIAlertController(title: "Edit Question", message: "You have edited the current question. Are you sure you want to save your changes?", preferredStyle: .alert)
+                
+                let cancleAction = UIAlertAction(title: "Cancle", style: .cancel, handler: {action in
+                    self.toggleEditButton.setTitle("Cancle", for: .normal)
+                    self.toggleEdit(self.toggleEditButton)
+                })
+                
+                let changeAction = UIAlertAction(title: "Change", style: .default, handler: {action in
+                    guard self.questionField.text != "" && self.answerField1.text != "" && self.answerField2.text != "" && self.answerField3.text != "" && self.answerField4.text != "" else {
+                        UIView.animate(withDuration: 0.25, animations: {
+                            self.editActionButton.setTitle("Fields Must Be Filled", for: .normal)
+                            self.editActionButton.backgroundColor = UIColor.red
+                        })
+                        self.editActionButton.isUserInteractionEnabled = false
+                        let time = Timer.scheduledTimer(timeInterval: 0, target: self, selector: #selector(self.resetEditActionButton2), userInfo: nil, repeats: false)
+                        time.fireDate = Date().addingTimeInterval(3)
+                        return
+                    }
+                    ViewController.questions[self.questionPicker.selectedRow(inComponent: 0)].question = self.questionField.text!
+                    ViewController.questions[self.questionPicker.selectedRow(inComponent: 0)].answers[0] = self.answerField1.text!
+                    ViewController.questions[self.questionPicker.selectedRow(inComponent: 0)].answers[1] = self.answerField2.text!
+                    ViewController.questions[self.questionPicker.selectedRow(inComponent: 0)].answers[2] = self.answerField3.text!
+                    ViewController.questions[self.questionPicker.selectedRow(inComponent: 0)].answers[3] = self.answerField4.text!
+                    ViewController.questions[self.questionPicker.selectedRow(inComponent: 0)].correctAnswer = self.correctAnswerSelector.selectedSegmentIndex + 1
+                    
+                    Question.saveArray(questions: ViewController.questions)
+                    
+                    self.questionDidChange = false
+                    self.toggleEditButton.setTitle("Cancle", for: .normal)
+                    self.toggleEdit(self.toggleEditButton)
+                })
+                
+                alert.addAction(cancleAction)
+                alert.addAction(changeAction)
+                
+                self.present(alert, animated: true)
+            } else {
+                questionDidChange = false
+                toggleEditButton.setTitle("Cancle", for: .normal)
+                toggleEdit(toggleEditButton)
+            }
+        } else { //Resets screen to normal state.
             toggleEditButton.setTitle("Toggle Edit Mode", for: .normal)
-            editActionButton.setTitle("Delete Question", for: .normal)
+            editActionButton.setTitle("Add Question", for: .normal)
             if ViewController.questions.count == 0 {
                 editActionButton.isUserInteractionEnabled = false
                 editActionButton.tintColor = UIColor.red
@@ -142,6 +187,17 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             alert.addAction(deleteAction)
             
             self.present(alert, animated: true)
+        } else if editActionButton.currentTitle == "Add Question" {
+            questionPicker.isUserInteractionEnabled = false
+            questionField.text = ""
+            answerField1.text = ""
+            answerField2.text = ""
+            answerField3.text = ""
+            answerField4.text = ""
+            toggleEditButton.setTitle("Cancle", for: .normal)
+            editActionButton.setTitle("Confirm Addition", for: .normal)
+            correctAnswerSelector.isHidden = false
+            correctAnswerSelector.isUserInteractionEnabled = true
         } else {
             guard questionField.text != "" && answerField1.text != "" && answerField2.text != "" && answerField3.text != "" && answerField4.text != "" else {
                 UIView.animate(withDuration: 0.25, animations: {
@@ -149,11 +205,12 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
                     self.editActionButton.backgroundColor = UIColor.red
                 })
                 editActionButton.isUserInteractionEnabled = false
-                let time = Timer.scheduledTimer(timeInterval: 0, target: self, selector: #selector(resetEditActionButton), userInfo: nil, repeats: false)
+                let time = Timer.scheduledTimer(timeInterval: 0, target: self, selector: #selector(resetEditActionButton2), userInfo: nil, repeats: false)
                 time.fireDate = Date().addingTimeInterval(3)
                 return
             }
             ViewController.questions.append(Question(Question: questionField.text!, Answers: [answerField1.text!, answerField2.text!, answerField3.text!, answerField4.text!], CorrectAnswer: correctAnswerSelector.selectedSegmentIndex + 1))
+            questionPicker.isUserInteractionEnabled = true
             questionField.text = ""
             answerField1.text = ""
             answerField2.text = ""
@@ -178,6 +235,26 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             self.editActionButton.backgroundColor = UIColor.clear
         })
         editActionButton.isUserInteractionEnabled = true
+    }
+    
+    @objc func resetEditActionButton2() { //Alt-Function
+        UIView.animate(withDuration: 0.25, animations: {
+            self.editActionButton.setTitle("Confirm Addition", for: .normal)
+            self.editActionButton.backgroundColor = UIColor.clear
+        })
+        editActionButton.isUserInteractionEnabled = true
+    }
+    
+    @objc func textFieldDidChange() { //For whatever reason, valueDidChange does not work on text fields, so we can't use the IBAction to trigger the change. Instead we use some new code in the viewDidLoad function to trigger the change.
+        if toggleEditButton.currentTitle == "End Edit Mode" {
+            questionDidChange = true
+        }
+    }
+    
+    @IBAction func questionChanged() {
+        if toggleEditButton.currentTitle == "End Edit Mode" {
+            questionDidChange = true
+        }
     }
 }
 

@@ -243,7 +243,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="vfm-l5-nYs"/>
                                 </constraints>
-                                <state key="normal" title="Delete Question"/>
+                                <state key="normal" title="Add Question"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <integer key="value" value="10"/>
@@ -265,6 +265,9 @@
                                     <segment title="3"/>
                                     <segment title="4"/>
                                 </segments>
+                                <connections>
+                                    <action selector="questionChanged" destination="KTF-bo-hGQ" eventType="valueChanged" id="a4D-BM-Zvj"/>
+                                </connections>
                             </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
