@@ -129,7 +129,7 @@ class ViewController: UIViewController {
     @objc func updateTextViewConstraint() { //View did load helper.
         questionFieldHeight.constant = CGFloat(20 * Double(Double(self.questionField.text.count) / 50).rounded(.up) + 10)
         if questionFieldHeight.constant == 30 {
-            questionField.layer.cornerRadius = 10
+            questionField.layer.cornerRadius = 15
         } else {
             questionField.layer.cornerRadius = 20
         }
