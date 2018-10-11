@@ -81,6 +81,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             answerField2.text = ""
             answerField3.text = ""
             answerField4.text = ""
+            correctAnswerSelector.selectedSegmentIndex = 0
             return
         }
         
@@ -89,6 +90,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         answerField2.text = ViewController.questions[questionPicker.selectedRow(inComponent: 0)].answers[1]
         answerField3.text = ViewController.questions[questionPicker.selectedRow(inComponent: 0)].answers[2]
         answerField4.text = ViewController.questions[questionPicker.selectedRow(inComponent: 0)].answers[3]
+        correctAnswerSelector.selectedSegmentIndex = ViewController.questions[questionPicker.selectedRow(inComponent: 0)].correctAnswer - 1
     }
     
     @IBAction func toggleEdit(_ sender: UIButton) { //Variable action depending on button state.
@@ -150,11 +152,13 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             }
         } else { //Resets screen to normal state.
             toggleEditButton.setTitle("Toggle Edit Mode", for: .normal)
-            editActionButton.setTitle("Add Question", for: .normal)
             if ViewController.questions.count == 0 {
-                editActionButton.isUserInteractionEnabled = false
-                editActionButton.tintColor = UIColor.red
+                toggleEditButton.tintColor = UIColor.red
+                toggleEditButton.isUserInteractionEnabled = false
+                editActionButton.tintColor = defaultButtonColor
+                editActionButton.isUserInteractionEnabled = true
             }
+            editActionButton.setTitle("Add Question", for: .normal)
             questionPicker.isUserInteractionEnabled = true
             correctAnswerSelector.isHidden = true
             correctAnswerSelector.isUserInteractionEnabled = false
@@ -194,6 +198,10 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             answerField2.isUserInteractionEnabled = true
             answerField3.isUserInteractionEnabled = true
             answerField4.isUserInteractionEnabled = true
+            if toggleEditButton.tintColor == UIColor.red {
+                toggleEditButton.isUserInteractionEnabled = true
+                toggleEditButton.tintColor = defaultButtonColor
+            }
             questionField.text = ""
             answerField1.text = ""
             answerField2.text = ""
