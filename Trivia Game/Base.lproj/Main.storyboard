@@ -111,7 +111,6 @@
                                     <constraint firstAttribute="height" constant="64" id="8ef-FC-bMV"/>
                                     <constraint firstAttribute="width" constant="365" id="e65-wA-Sgy"/>
                                 </constraints>
-                                <string key="text">ggggggggggggghghfjshkgjlhaskjghsdkjghueghiouwTVWRYTOIUwytuiyLITUYWLEUVIRYLTRYITUeytuivwyeUITVYWETUVwevwtliuyewLTIUWtyliwuybtBVTiuytlIUF</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <userDefinedRuntimeAttributes>
