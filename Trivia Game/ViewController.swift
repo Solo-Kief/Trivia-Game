@@ -8,6 +8,7 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet var questionField: UITextView!
+    @IBOutlet var questionFieldHeight: NSLayoutConstraint!
     @IBOutlet var answer1: UIButton!
     @IBOutlet var answer2: UIButton!
     @IBOutlet var answer3: UIButton!
@@ -34,6 +35,7 @@ class ViewController: UIViewController {
         if ViewController.questions.count == 0 { //temporary for testing.
             buildDefaultQuestions()
         }
+        
         loadQuestion()
     }
 
@@ -50,6 +52,13 @@ class ViewController: UIViewController {
         answer3.setTitle(ViewController.questions[selector].answers[2], for: .normal)
         answer4.setTitle(ViewController.questions[selector].answers[3], for: .normal)
         correctAnswer = ViewController.questions[selector].correctAnswer
+        
+        UIView.animate(withDuration: 0.25, animations: {
+            self.questionField.backgroundColor = UIColor.clear
+            self.questionField.textColor = UIColor.clear
+        })
+        let time = Timer.scheduledTimer(timeInterval: 0, target: self, selector: #selector(updateTextViewConstraint), userInfo: nil, repeats: false)
+        time.fireDate = Date().addingTimeInterval(0.35)
     }
     
     func buildDefaultQuestions() { //temporary function for testing.
@@ -115,6 +124,19 @@ class ViewController: UIViewController {
         default:
             return
         }
+    }
+    
+    @objc func updateTextViewConstraint() { //View did load helper.
+        questionFieldHeight.constant = CGFloat(20 * Double(Double(self.questionField.text.count) / 50).rounded(.up) + 10)
+        if questionFieldHeight.constant == 30 {
+            questionField.layer.cornerRadius = 10
+        } else {
+            questionField.layer.cornerRadius = 20
+        }
+        UIView.animate(withDuration: 0.25, animations: {
+            self.questionField.backgroundColor = UIColor.lightGray
+            self.questionField.textColor = UIColor.black
+        })
     }
     
     @objc func resetScenario() {

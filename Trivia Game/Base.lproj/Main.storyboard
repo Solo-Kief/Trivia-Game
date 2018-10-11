@@ -111,6 +111,7 @@
                                     <constraint firstAttribute="height" constant="64" id="8ef-FC-bMV"/>
                                     <constraint firstAttribute="width" constant="365" id="e65-wA-Sgy"/>
                                 </constraints>
+                                <string key="text">ggggggggggggghghfjshkgjlhaskjghsdkjghueghiouwTVWRYTOIUwytuiyLITUYWLEUVIRYLTRYITUeytuivwyeUITVYWETUVwevwtliuyewLTIUWtyliwuybtBVTiuytlIUF</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <userDefinedRuntimeAttributes>
@@ -143,6 +144,7 @@
                         <outlet property="answer3" destination="Zle-1J-HLd" id="XGi-e5-kk1"/>
                         <outlet property="answer4" destination="fkX-Eg-CPl" id="EcF-AT-b0n"/>
                         <outlet property="questionField" destination="X5S-q9-M4t" id="Epc-Vs-qFJ"/>
+                        <outlet property="questionFieldHeight" destination="8ef-FC-bMV" id="TTz-WC-IsQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
