@@ -107,6 +107,11 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             answerField3.isUserInteractionEnabled = true
             answerField4.isUserInteractionEnabled = true
             questionField.isUserInteractionEnabled = true
+            questionField.backgroundColor = UIColor.white
+            answerField1.backgroundColor = UIColor.white
+            answerField2.backgroundColor = UIColor.white
+            answerField3.backgroundColor = UIColor.white
+            answerField4.backgroundColor = UIColor.white
         } else if toggleEditButton.currentTitle == "End Edit Mode" { //Ends editing mode.
             if questionDidChange { //Triggers an alert set up if the question was modified. Otherwise, will just perform the else condition.
                 let alert = UIAlertController(title: "Edit Question", message: "You have edited the current question. Are you sure you want to save your changes?", preferredStyle: .alert)
@@ -167,6 +172,11 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             answerField3.isUserInteractionEnabled = false
             answerField4.isUserInteractionEnabled = false
             questionField.isUserInteractionEnabled = false
+            questionField.backgroundColor = UIColor.lightGray
+            answerField1.backgroundColor = UIColor.lightGray
+            answerField2.backgroundColor = UIColor.lightGray
+            answerField3.backgroundColor = UIColor.lightGray
+            answerField4.backgroundColor = UIColor.lightGray
             updateText()
         }
     }
@@ -198,6 +208,11 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             answerField2.isUserInteractionEnabled = true
             answerField3.isUserInteractionEnabled = true
             answerField4.isUserInteractionEnabled = true
+            questionField.backgroundColor = UIColor.white
+            answerField1.backgroundColor = UIColor.white
+            answerField2.backgroundColor = UIColor.white
+            answerField3.backgroundColor = UIColor.white
+            answerField4.backgroundColor = UIColor.white
             if toggleEditButton.tintColor == UIColor.red {
                 toggleEditButton.isUserInteractionEnabled = true
                 toggleEditButton.tintColor = defaultButtonColor
