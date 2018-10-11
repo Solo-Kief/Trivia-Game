@@ -7,11 +7,12 @@
 import UIKit
 
 class ViewController: UIViewController {
-    @IBOutlet var questionField: UITextField!
+    @IBOutlet var questionField: UITextView!
     @IBOutlet var answer1: UIButton!
     @IBOutlet var answer2: UIButton!
     @IBOutlet var answer3: UIButton!
     @IBOutlet var answer4: UIButton!
+    
     
     static var questions: [Question] = []
     var correctAnswer = 0
