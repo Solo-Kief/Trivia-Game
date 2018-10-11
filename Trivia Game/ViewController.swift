@@ -38,9 +38,9 @@ class ViewController: UIViewController {
 
     func loadQuestion() {
         var selector = Int.random(in: 0..<ViewController.questions.count)
-        while lastQuestion == selector {
+        while lastQuestion == selector && ViewController.questions.count != 1 {
             selector = Int.random(in: 0..<ViewController.questions.count)
-        }
+        } //Prevents a question from repeating back-to-back.
         lastQuestion = selector
         
         questionField.text = ViewController.questions[selector].question

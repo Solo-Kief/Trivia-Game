@@ -254,7 +254,11 @@
                                 </connections>
                             </button>
                             <segmentedControl hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="g4b-1s-VW1">
-                                <rect key="frame" x="140" y="697" width="95" height="29"/>
+                                <rect key="frame" x="100" y="696" width="175" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="XkX-bA-5xo"/>
+                                    <constraint firstAttribute="width" constant="175" id="cLv-As-5z8"/>
+                                </constraints>
                                 <segments>
                                     <segment title="1"/>
                                     <segment title="2"/>
@@ -290,7 +294,7 @@
                             <constraint firstItem="qpo-aS-mBh" firstAttribute="top" secondItem="y1k-La-Tor" secondAttribute="bottom" constant="10" id="dkL-S2-DAc"/>
                             <constraint firstItem="olr-PJ-R3M" firstAttribute="top" secondItem="hkV-sz-sgD" secondAttribute="top" id="dxJ-dn-bb9"/>
                             <constraint firstItem="nhC-Du-4BO" firstAttribute="centerX" secondItem="V7v-h6-QVs" secondAttribute="centerX" id="gEo-9h-lsL"/>
-                            <constraint firstItem="hVo-aA-Tto" firstAttribute="top" secondItem="g4b-1s-VW1" secondAttribute="bottom" constant="17" id="gPR-5F-rYt"/>
+                            <constraint firstItem="hVo-aA-Tto" firstAttribute="top" secondItem="g4b-1s-VW1" secondAttribute="bottom" constant="10" id="gPR-5F-rYt"/>
                             <constraint firstItem="5Ml-m8-9b5" firstAttribute="centerX" secondItem="V7v-h6-QVs" secondAttribute="centerX" id="loK-Mh-hzu"/>
                             <constraint firstItem="JLJ-8V-HL2" firstAttribute="top" secondItem="hkV-sz-sgD" secondAttribute="top" id="nO5-oo-M1g"/>
                             <constraint firstItem="hVo-aA-Tto" firstAttribute="trailing" secondItem="hkV-sz-sgD" secondAttribute="trailing" constant="-5" id="pzK-I4-Yxw"/>
