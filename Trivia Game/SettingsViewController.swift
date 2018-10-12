@@ -275,6 +275,18 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     }
     
     @objc func resetEditActionButton2() { //Alt-Function
+        guard self.toggleEditButton.title(for: .normal) == "Cancle" else {
+            if self.toggleEditButton.title(for: .normal) == "Toggle Edit Mode" {
+                UIView.animate(withDuration: 0.25, animations: {
+                    self.editActionButton.setTitle("Add Question", for: .normal)
+                    self.editActionButton.backgroundColor = UIColor.clear
+                    self.editActionButton.setTitleColor(self.defaultButtonColor, for: .normal)
+                })
+                editActionButton.isUserInteractionEnabled = true
+            }
+            return
+        } //Hotfix for button being in wrong state if exiting "add question" state while on the warning animation.
+        
         UIView.animate(withDuration: 0.25, animations: {
             self.editActionButton.setTitle("Confirm Addition", for: .normal)
             self.editActionButton.backgroundColor = UIColor.clear
