@@ -81,7 +81,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             answerField2.text = ""
             answerField3.text = ""
             answerField4.text = ""
-            correctAnswerSelector.selectedSegmentIndex = 0
+            correctAnswerSelector.selectedSegmentIndex = -1
             return
         }
         
@@ -226,9 +226,9 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             editActionButton.setTitle("Confirm Addition", for: .normal)
             correctAnswerSelector.isHidden = false
             correctAnswerSelector.isUserInteractionEnabled = true
-            correctAnswerSelector.selectedSegmentIndex = 0
+            correctAnswerSelector.selectedSegmentIndex = -1
         } else { // Confirm Addition
-            guard questionField.text != "" && answerField1.text != "" && answerField2.text != "" && answerField3.text != "" && answerField4.text != "" else {
+            guard questionField.text != "" && answerField1.text != "" && answerField2.text != "" && answerField3.text != "" && answerField4.text != "" && correctAnswerSelector.selectedSegmentIndex != -1 else {
                 UIView.animate(withDuration: 0.25, animations: {
                     self.editActionButton.setTitle("Fields Must Be Filled", for: .normal)
                     self.editActionButton.backgroundColor = UIColor.red

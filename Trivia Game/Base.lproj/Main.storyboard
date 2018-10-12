@@ -271,7 +271,7 @@
                                     <action selector="triggerEditAction:" destination="KTF-bo-hGQ" eventType="touchUpInside" id="qu5-6C-fbD"/>
                                 </connections>
                             </button>
-                            <segmentedControl hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="g4b-1s-VW1">
+                            <segmentedControl hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="g4b-1s-VW1">
                                 <rect key="frame" x="100" y="696" width="175" height="37"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="XkX-bA-5xo"/>
