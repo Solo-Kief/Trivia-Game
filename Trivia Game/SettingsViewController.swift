@@ -25,7 +25,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         super.viewDidLoad()
         hideKeyboardWhenTappedAround()
         
-        defaultButtonColor = editActionButton.tintColor
+        defaultButtonColor = editActionButton.titleColor(for: .normal)!
         
         questionPicker.delegate = self
         questionPicker.dataSource = self
@@ -98,7 +98,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             toggleEditButton.setTitle("End Edit Mode", for: .normal)
             editActionButton.setTitle("Delete Question", for: .normal)
             editActionButton.isUserInteractionEnabled = true
-            editActionButton.tintColor = defaultButtonColor
+            editActionButton.setTitleColor(defaultButtonColor, for: .normal)
             correctAnswerSelector.isHidden = false
             correctAnswerSelector.isUserInteractionEnabled = true
             correctAnswerSelector.selectedSegmentIndex = ViewController.questions[questionPicker.selectedRow(inComponent: 0)].correctAnswer - 1
@@ -158,9 +158,9 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         } else { //Resets screen to normal state.
             toggleEditButton.setTitle("Toggle Edit Mode", for: .normal)
             if ViewController.questions.count == 0 {
-                toggleEditButton.tintColor = UIColor.red
+                toggleEditButton.setTitleColor(UIColor.red, for: .normal)
                 toggleEditButton.isUserInteractionEnabled = false
-                editActionButton.tintColor = defaultButtonColor
+                editActionButton.setTitleColor(defaultButtonColor, for: .normal)
                 editActionButton.isUserInteractionEnabled = true
             }
             editActionButton.setTitle("Add Question", for: .normal)
@@ -194,7 +194,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
                 Question.saveArray(questions: ViewController.questions)
                 if ViewController.questions.count == 0 {
                     self.editActionButton.isUserInteractionEnabled = false
-                    self.editActionButton.tintColor = UIColor.red
+                    self.editActionButton.setTitleColor(UIColor.red, for: .normal)
                 }
             })
             alert.addAction(cancleAction)
@@ -213,9 +213,9 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             answerField2.backgroundColor = UIColor.white
             answerField3.backgroundColor = UIColor.white
             answerField4.backgroundColor = UIColor.white
-            if toggleEditButton.tintColor == UIColor.red {
+            if toggleEditButton.titleColor(for: .normal) == UIColor.red {
                 toggleEditButton.isUserInteractionEnabled = true
-                toggleEditButton.tintColor = defaultButtonColor
+                toggleEditButton.setTitleColor(defaultButtonColor, for: .normal)
             }
             questionField.text = ""
             answerField1.text = ""
@@ -232,6 +232,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
                 UIView.animate(withDuration: 0.25, animations: {
                     self.editActionButton.setTitle("Fields Must Be Filled", for: .normal)
                     self.editActionButton.backgroundColor = UIColor.red
+                    self.editActionButton.setTitleColor(.white, for: .normal)
                 })
                 editActionButton.isUserInteractionEnabled = false
                 let time = Timer.scheduledTimer(timeInterval: 0, target: self, selector: #selector(resetEditActionButton2), userInfo: nil, repeats: false)
@@ -277,6 +278,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         UIView.animate(withDuration: 0.25, animations: {
             self.editActionButton.setTitle("Confirm Addition", for: .normal)
             self.editActionButton.backgroundColor = UIColor.clear
+            self.editActionButton.setTitleColor(self.defaultButtonColor, for: .normal)
         })
         editActionButton.isUserInteractionEnabled = true
     }
