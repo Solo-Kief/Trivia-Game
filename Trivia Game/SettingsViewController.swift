@@ -116,8 +116,8 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             if questionDidChange { //Triggers an alert set up if the question was modified. Otherwise, will just perform the else condition.
                 let alert = UIAlertController(title: "Edit Question", message: "You have edited the current question. Are you sure you want to save your changes?", preferredStyle: .alert)
                 
-                let cancleAction = UIAlertAction(title: "Cancle", style: .cancel, handler: {action in
-                    self.toggleEditButton.setTitle("Cancle", for: .normal)
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {action in
+                    self.toggleEditButton.setTitle("Cancel", for: .normal)
                     self.toggleEdit(self.toggleEditButton)
                 })
                 
@@ -142,17 +142,17 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
                     Question.saveArray(questions: ViewController.questions)
                     
                     self.questionDidChange = false
-                    self.toggleEditButton.setTitle("Cancle", for: .normal)
+                    self.toggleEditButton.setTitle("Cancel", for: .normal)
                     self.toggleEdit(self.toggleEditButton)
                 })
                 
-                alert.addAction(cancleAction)
+                alert.addAction(cancelAction)
                 alert.addAction(changeAction)
                 
                 self.present(alert, animated: true)
             } else {
                 questionDidChange = false
-                toggleEditButton.setTitle("Cancle", for: .normal)
+                toggleEditButton.setTitle("Cancel", for: .normal)
                 toggleEdit(toggleEditButton)
             }
         } else { //Resets screen to normal state.
@@ -185,7 +185,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         if editActionButton.currentTitle == "Delete Question" {
             let alert = UIAlertController(title: "Delete Question", message: "Are you sure you want to delete this question?", preferredStyle: .alert)
             
-            let cancleAction = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
             let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: {action in ViewController.questions.remove(at: self.questionPicker.selectedRow(inComponent: 0))
                 self.rebuildData()
                 self.questionPicker.reloadAllComponents()
@@ -197,7 +197,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
                     self.editActionButton.setTitleColor(UIColor.red, for: .normal)
                 }
             })
-            alert.addAction(cancleAction)
+            alert.addAction(cancelAction)
             alert.addAction(deleteAction)
             
             self.present(alert, animated: true)
@@ -222,7 +222,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             answerField2.text = ""
             answerField3.text = ""
             answerField4.text = ""
-            toggleEditButton.setTitle("Cancle", for: .normal)
+            toggleEditButton.setTitle("Cancel", for: .normal)
             editActionButton.setTitle("Confirm Addition", for: .normal)
             correctAnswerSelector.isHidden = false
             correctAnswerSelector.isUserInteractionEnabled = true
@@ -275,14 +275,18 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     }
     
     @objc func resetEditActionButton2() { //Alt-Function
-        guard self.toggleEditButton.title(for: .normal) == "Cancle" else {
-            if self.toggleEditButton.title(for: .normal) == "Toggle Edit Mode" {
+        guard toggleEditButton.title(for: .normal) == "Cancel" else {
+            if toggleEditButton.title(for: .normal) == "Toggle Edit Mode" {
                 UIView.animate(withDuration: 0.25, animations: {
                     self.editActionButton.setTitle("Add Question", for: .normal)
                     self.editActionButton.backgroundColor = UIColor.clear
                     self.editActionButton.setTitleColor(self.defaultButtonColor, for: .normal)
                 })
                 editActionButton.isUserInteractionEnabled = true
+            } else if toggleEditButton.title(for: .normal) == "End Edit Mode" {
+                UIView.animate(withDuration: 0.25, animations: {
+                    self.editActionButton.backgroundColor = UIColor.clear
+                })
             }
             return
         } //Hotfix for button being in wrong state if exiting "add question" state while on the warning animation.
